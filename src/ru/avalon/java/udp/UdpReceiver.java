@@ -3,6 +3,7 @@ package ru.avalon.java.udp;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.SocketException;
 
 /**
  * Упражнение, на правленное на выработку умений, связанных с полученеим
@@ -18,7 +19,7 @@ public final class UdpReceiver {
         // 2. Формируем пакет, на основе созданного буфера.
         final DatagramPacket packet = preparePacket(buffer);
         // 3. Выбираем порт, на который ожидается получение сообщения.
-        final int port = 0;
+        final int port = 5020;
         // 4. Формируем сокет, связанный с выбранным портом.
         final DatagramSocket socket = prepareSocket(port);
         // 5. Получаем сообщение.
@@ -27,6 +28,7 @@ public final class UdpReceiver {
         final String message = getMessage(packet);
         // 7. Освобождаем ресурсы.
         socket.close();
+        System.out.println(message);
     }
 
     /**
@@ -38,7 +40,7 @@ public final class UdpReceiver {
         /*
          * TODO Реализовать метод prepareBuffer класса UdpReceiver
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        return new byte[1024];
     }
 
     /**
@@ -54,7 +56,7 @@ public final class UdpReceiver {
         /*
          * TODO Реализовать метод preparePacket класса UdpReceiver
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+       return new DatagramPacket(buffer, buffer.length);
     }
 
     /**
@@ -64,11 +66,11 @@ public final class UdpReceiver {
      *
      * @return сокет.
      */
-    private static DatagramSocket prepareSocket(int port) {
+    private static DatagramSocket prepareSocket(int port) throws SocketException {
         /*
          * TODO Реализовать метод prepareSocket класса UdpReceiver
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+       return new DatagramSocket(port);
     }
 
     /**
@@ -83,7 +85,10 @@ public final class UdpReceiver {
         /*
          * TODO Реализовать метод getMessage класса UdpReceiver
          */
-        throw new UnsupportedOperationException("Not implemented yet!");
+        
+         String message = new String(packet.getData(), 0, packet.getLength());
+        
+        return message;
     }
 
 }
